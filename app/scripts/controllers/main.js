@@ -24,4 +24,23 @@ angular.module('crossfitApp')
         console.log(response);
       });
     };
+
+    $scope.createUser = function() {
+      $http({
+        method: 'POST',
+        url: 'http://localhost:3977/api/register',
+        data: {
+          name: $scope.name,
+          surname: $scope.surname,
+          email: $scope.mail,
+          password: $scope.pass,
+          role: 'ROLE_USER',
+          image: 'null'
+        }
+      }).then(function successCallback(response) {
+        console.log(response);
+      }, function errorCallback(response) {
+        console.log(response);
+      });
+    };
   });
