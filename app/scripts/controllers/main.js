@@ -9,17 +9,19 @@
  */
 angular.module('crossfitApp')
   .controller('MainCtrl',  function ($scope, $http) {
+
     $scope.sendForm = function() {
       $http({
         method: 'POST',
         url: 'http://localhost:3977/api/loginUser',
         data: {
-          email: $scope.mail,
-          password: $scope.pass,
+          email: $scope.mailLogin,
+          password: $scope.passLogin,
           gethash: true
         }
       }).then(function successCallback(response) {
-        console.log(response.data);
+        console.log(response.data.token);
+        $scope.token = response.data.token;
       }, function errorCallback(response) {
         console.log(response);
       });
@@ -43,4 +45,19 @@ angular.module('crossfitApp')
         console.log(response);
       });
     };
+
+    $scope.tryToken =  function() {
+      $http({
+        method: 'POST',
+        url: 'http://localhost:3977/api/pruebaAutorizacion',
+        headers:{
+          authorization: $scope.token
+        }
+      }).then(function successCallback(response) {
+        console.log(response);
+      }, function errorCallback(response) {
+        console.log(response);
+      });
+    };
+
   });
