@@ -8,7 +8,7 @@
  * Controller of the crossfitApp
  */
 angular.module('crossfitApp')
-  .controller('MainCtrl',  function ($scope, $http) {
+  .controller('MainCtrl',  function ($scope, $http, $location) {
 
     $scope.sendForm = function() {
       $http({
@@ -22,6 +22,7 @@ angular.module('crossfitApp')
       }).then(function successCallback(response) {
         console.log(response.data.token);
         $scope.token = response.data.token;
+        $location.path('/dashboard');
       }, function errorCallback(response) {
         console.log(response);
       });
